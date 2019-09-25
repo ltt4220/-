@@ -1,0 +1,85 @@
+ {
+			"doMain_head": [{
+				"name": "备案域名：",
+				"value": "zuma.com"
+			}, {
+				"name": "备案类型：",
+				"value": "首次备案"
+			}, {
+				"name": "备案状态：",
+				"value": "待提交"
+			}, {
+				"name": "创建时间：",
+				"value": "2019-06-26 02:50:20"
+			}],
+			"prompt": {
+				"title": "主办单位证件上传",
+				"text": "如企业单位已更换统一信用代码的用户，必须上传新版证件，请按要求上传主办单位证件，审核不通过会延长审核时间",
+				"listData": [{
+					"name": "（1）请您准备一份主办单位证件的彩色复印件（请与基础信息填写页内选择的主办单位证件类型一致）",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}, {
+					"name": "（2）在您的复印件上盖上主体公章",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}, {
+					"name": "（3）彩色扫描已加盖公章的复印件",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}, {
+					"name": "（4）上传已加盖公章的彩色扫描件文件",
+					"loading": "",
+					"symbol1": "",
+					"symbol2": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"helpText": ""
+				}]
+			},
+			"domainImg": "./img/domain.png",
+			"loadingText": "上传彩色扫描件",
+			"loadingState": false,
+			"domainUploadingImg": "",
+			"loadingFlah": false,
+			"Uploaded": false,
+			"UploadedText": "重新上传",
+			"magnify": false,
+			"magnifyUpload": false,
+			"imgLeft": {
+				"smallLeftWidth": 0,
+				"smallLeftHeight": 0,
+				"bigblowLeftWidth": 0,
+				"bigblowLeftHeight": 0
+			},
+			"imgUpload": {
+				"smallWidth": 0,
+				"smallHeight": 0,
+				"bigblowWidth": 0,
+				"bigblowHeight": 0
+			},
+			"saveState": false,
+			"goBack":false,
+			"save":false,
+			"maskState": false
+		}

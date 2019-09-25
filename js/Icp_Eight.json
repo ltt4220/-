@@ -1,0 +1,85 @@
+ {
+ 	"doMain_head": [{
+ 		"name": "备案域名：",
+ 		"value": "zuma.com"
+ 	}, {
+ 		"name": "备案类型：",
+ 		"value": "首次备案"
+ 	}, {
+ 		"name": "备案状态：",
+ 		"value": "待提交"
+ 	}, {
+ 		"name": "创建时间：",
+ 		"value": "2019-06-26 02:50:20"
+ 	}],
+ 	"prompt": {
+ 		"title": "法人授权书上传",
+ 		"text": "提示：当网站负责人与法人不是同一人时，需同时上传负责人身份证件及《法人授权书》",
+ 		"listData": [{
+ 			"name": "（1）请您下载《法人授权书》",
+ 			"loading": "../img/关于网站备案及管理的授权书.doc",
+ 			"link": "",
+ 			"img": "",
+ 			"width": "",
+ 			"height": "",
+ 			"symbol1": "",
+ 			"symbol2": "",
+ 			"helpText": ""
+ 		}, {
+ 			"name": "（2）请打印一份已下载的文件",
+ 			"loading": "",
+ 			"link": "",
+ 			"img": "",
+ 			"width": "",
+ 			"height": "",
+ 			"symbol1": "",
+ 			"symbol2": "",
+ 			"helpText": ""
+ 		}, {
+ 			"name": "（3）请使用黑色签字笔填写授权书（不得涂改）",
+ 			"loading": "",
+ 			"link": "",
+ 			"img": "",
+ 			"width": "",
+ 			"height": "",
+ 			"symbol1": "",
+ 			"symbol2": "",
+ 			"helpText": ""
+ 		}, {
+ 			"name": "（4）上传已加盖公章的彩色扫描件文件",
+ 			"loading": "",
+ 			"symbol1": "",
+ 			"symbol2": "",
+ 			"link": "",
+ 			"img": "",
+ 			"width": "",
+ 			"height": "",
+ 			"helpText": ""
+ 		}]
+ 	},
+ 	"domainImg": "./img/adminBook.jpg",
+ 	"loadingText": "上传彩色扫描件",
+ 	"loadingState": false,
+ 	"domainUploadingImg": "",
+ 	"loadingFlah": false,
+ 	"Uploaded": false,
+ 	"UploadedText": "重新上传",
+ 	"magnify": false,
+ 	"magnifyUpload": false,
+ 	"imgLeft": {
+ 		"smallLeftWidth": 0,
+ 		"smallLeftHeight": 0,
+ 		"bigblowLeftWidth": 0,
+ 		"bigblowLeftHeight": 0
+ 	},
+ 	"imgUpload": {
+ 		"smallWidth": 0,
+ 		"smallHeight": 0,
+ 		"bigblowWidth": 0,
+ 		"bigblowHeight": 0
+ 	},
+ 	"saveState": false,
+ 	"goBack": false,
+ 	"save": false,
+ 	"maskState": false
+ }

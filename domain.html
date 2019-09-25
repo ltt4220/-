@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./css/domain.css">
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="doMain_box">
+            <div class="doMain_box_head">
+                <div><span></span></div>
+            </div>
+            <div class="domain_container">
+                <div class="doMain_head">
+                    <p>您当前所在位置 : ICP备案 > {{prompt.title}}</p>
+                    <ul>
+                        <li v-for="item in doMain_head">{{item.name}}<span>{{item.value}}</span></li>
+                    </ul>
+                    </ul>
+                </div>
+                <div class="doMain_body">
+                    <h3 class="doMain_body_tit">
+                        {{prompt.title}}：
+                    </h3>
+                    <p><span>提示</span>：{{prompt.text}}</p>
+                    <ul>
+                        <li v-for="option in prompt.listData">
+                            {{option.name}}{{option.symbol1}}<i>{{option.link}}</i>{{option.symbol2}}
+                            <a v-show="option.helpText" @click="addMask">{{option.helpText}}</a>
+                            <form :action="option.loading" v-if="option.loading"><input type="submit" value="下载"></form>
+                            <div v-show="option.img"
+                                :style="{backgroundImage:'url('+option.img+')',height:option.height,width:option.width}">
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="doMain_body_imgBox" ref="smallbox">
+                        <!-- 示例页面 -->
+                        <div class="doMain_body_img">
+                            <div>
+                                <div class="doMain_body_smallblowImg" ref="smallLeft" @mouseover="addmouseover"
+                                    @mouseout="addmouseout" @mousemove="addmousemove($event)">
+                                    <img :src="domainImg" :width="imgLeft.smallLeftWidth"
+                                        :height="imgLeft.smallLefHeight">
+                                    <div class="smallblow" ref="smallblowLeft" v-show="magnify"></div>
+                                </div>
+                                <span>正确样例</span>
+                            </div>
+                        </div>
+                        <!-- 放大页面 -->
+                        <div class="doMain_body_bigblowImg" ref="bigblowLeft" v-show="magnify">
+                            <div ref="bigimgLeft">
+                                <img :src="domainImg" :width="imgLeft.bigblowLeftWidth"
+                                    :height="imgLeft.bigblowLeftHeight">
+                            </div>
+                        </div>
+                        <!-- 上传页面 -->
+                        <div class="doMain_body_loading" ref="loading">
+                            <div>
+                                <div ref="small" @mouseover="addmouseoverUpload" @mousemove="addmousemoveUpload($event)"
+                                    @mouseout.stop="addmouseoutUpload">
+                                    <img :src="domainUploadingImg && uploadImg" :width="imgUpload.smallWidth"
+                                        :height="imgUpload.smallHeight" v-if="domainUploadingImg && uploadImg">
+                                    <div class="loadingText" v-show="!domainUploadingImg">
+                                        <button>{{loadingText}}</button>
+                                        <input class="addlogo" type="file" accept="image/*"
+                                            @change.stop="addClick($event)">
+                                    </div>
+                                    <div class="loadingState" v-show="!domainUploadingImg">
+                                        <span v-show="loadingFlah"></span>
+                                        <a href="javascript:;" v-show="Uploaded"> <i></i><span>上传成功！</span></a>
+                                    </div>
+                                    <div class="smallblow" ref="smallblow" v-show="magnifyUpload && uploadImg"></div>
+                                </div>
+                                <p class="loadingText" v-show="domainUploadingImg">
+                                    <button>{{UploadedText}}</button>
+                                    <input class="addlogo" type="file" accept="image/*" @change.stop="addClick($event)">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="doMain_body_bigImg" ref="bigblow" v-show="magnifyUpload && uploadImg">
+                            <div ref="bigimg">
+                                <img :src="uploadImg" :width="imgUpload.bigblowWidth" :height="imgUpload.bigblowHeight">
+                            </div>
+                        </div>
+                        <br clear="all" />
+                    </div>
+                </div>
+                <div class="doMain_footer">
+                    <button @click="addGoBack">返回</button>
+                    <button @click="addSave">保存资料</button>
+                    <div class="loadingState" v-show="saveState">
+                        <span v-show="saveState"></span>
+                        <a href="javascript:;" v-show="save"> <i></i><span>保存成功！</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="domain_mask" :style="{height:maskHeight}" v-if="maskState">
+                <div class="domain_mask_box">
+                    <div class="domain_mask_head">
+                        <ul class="domain_mask_table">
+                            <li v-for="(mask,i) in maskList" @click="addCheckList(i)">{{mask.title}}</li>
+                        </ul>
+                        <i @click="addclose">×</i>
+                    </div>
+                    <i class="triangle" :style="{left: index==0?'84px':'184px'}"></i>
+                    <div class="domain_mak_cont">
+                        <div class="domain_mak_contBox">
+                            <ul v-for="(tab,j) in maskList" v-if="j==index"
+                                :style="{left:banner.left,transition:banner.trans}">
+                                <li v-for="project in tab.list">
+                                    <div class="domain_makTop">第<span>{{project.steps}}</span>/6 步：</div>
+                                    <div class="domain_makLeft">
+                                        <div :class="['domain_makLeft_list',{domain_makRig_list:j==1}]"
+                                            v-for="list in project.stepList">
+                                            {{list}}
+                                        </div>
+                                    </div>
+                                    <div class="domain_makRight" :style="{backgroundImage:'url('+ project.img+')'}">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="domain_arrowLeft domain_arrow" @click="addArrowLeft"></div>
+                        <div class="domain_arrowRight domain_arrow" @click="addArrowRight"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const httpGet = (url, callback, err = console.error) => {
+        const request = new XMLHttpRequest();
+        request.open('GET', url, false);
+        request.onload = () => callback(JSON.parse(request.responseText));
+        request.onerror = () => err(request);
+        request.send();
+    };
+    var _data;
+    var _dj = function (v) {
+        _data = v;
+    };
+    let index = location.href.indexOf("#") + 1;
+    let last = location.href.indexOf("&");
+    let _href = location.href.slice(index, last)
+    let pageType = decodeURI(_href)
+    switch (pageType) {
+        case "domain_one":
+            httpGet("./js/Icp_One.json", _dj);
+            break;
+        case "domain_two":
+            httpGet("./js/Icp_Two.json", _dj);
+            break;
+        case "domain_three":
+            httpGet("./js/Icp_Three.json", _dj);
+            break;
+        case "domain_four":
+            httpGet("./js/Icp_Ten.json", _dj);
+            break;
+        case "domain_five":
+            break;
+        case "domain_six":
+            break;
+        case "domain_seven":
+            break;
+        case "domain_eight":
+            break;
+        case "domain_nine":
+            break;
+        default:
+            break;
+    }
+    console.log(pageType, "---=---**-----", last)
+    // httpGet("./js/Icp_One.json", _dj);
+    // httpGet("./js/Icp_Two.json", _dj);
+    // httpGet("./js/Icp_Three.json", _dj);
+    // httpGet("./js/Icp_Four.json", _dj);
+    // httpGet("./js/Icp_Five.json", _dj);
+    httpGet("./js/Icp_Six.json", _dj);
+    // httpGet("./js/Icp_Seven.json", _dj);
+    // httpGet("./js/Icp_Eight.json", _dj);
+    // httpGet("./js/Icp_Nine.json", _dj);
+    // httpGet("./js/Icp_Ten.json", _dj);
+    let vm = new Vue({
+        el: "#app",
+        // template: ``,
+        // data() {
+        //     return {
+        //         goBack:false,//保存请求状态;
+        //         save:false,//保存成功;
+        //         doMain_head: [{
+        //             name: "备案域名：",
+        //             value: "zuma.com",
+        //         }, {
+        //             name: "备案类型：",
+        //             value: "首次备案"
+        //         }, {
+        //             name: "备案状态：",
+        //             value: "待提交"
+        //         }, {
+        //             name: "创建时间：",
+        //             value: new Date()
+        //         }],
+        //         prompt: {
+        //             title: "主办单位证件上传",
+        //             text: "如企业单位已更换统一信用代码的用户，必须上传新版证件，请按要求上传主办单位证件，审核不通过会延长审核时间", //提示;
+        //             listData: [{
+        //                     name: "（1）请您准备一份主办单位证件的彩色复印件（请与基础信息填写页内选择的主办单位证件类型一致）",
+        //                     loading: "下载",
+        //                     link: "",
+        //                     img: "",
+        //                     width: "",
+        //                     height: "",
+        //                     symbol1: "",
+        //                     symbol2: "",
+        //                     helpText: "如何获取"
+        //                 }, {
+        //                     name: "（2）在您的复印件上盖上主体公章",
+        //                     loading: "",
+        //                     link: "",
+        //                     img: "./img/chek-list.png",
+        //                     width: "698px",
+        //                     height: "210px",
+        //                     symbol1: "", 
+        //                     symbol2: "",
+        //                     helpText: ""
+        //                 }, {
+        //                     name: "（3）彩色扫描已加盖公章的复印件",
+        //                     loading: "",
+        //                     link: "",
+        //                     img: "",
+        //                     width: "",
+        //                     height: "",
+        //                     symbol1: "",
+        //                     symbol2: "",
+        //                     helpText: ""
+        //                 }, {
+        //                     name: "（4）上传已加盖公章的彩色扫描件文件",
+        //                     loading: "",
+        //                     symbol1: "（",
+        //                     symbol2: "）",
+        //                     link: "日期请留空",
+        //                     img: "./img/Scan-files.png",
+        //                     width: "698x",
+        //                     height: "230px",
+        //                     helpText: ""
+        //                 },
+        //                 {
+        //                     name: "（5）上传已加盖公章的彩色扫描件文件",
+        //                     loading: "",
+        //                     link: "",
+        //                     img: "",
+        //                     width: "",
+        //                     height: "",
+        //                     symbol1: "",
+        //                     symbol2: "",
+        //                     helpText: ""
+        //                 }
+        //             ]
+        //         },
+        //         domainImg: "./img/domain.png",
+        //         loadingText: "上传彩色扫描件",
+        //         loadingState: false, //是否上传
+        //         domainUploadingImg: "", //上传图片
+        //         loadingFlah: false, //上传动画
+        //         Uploaded: false, //上传成功状态
+        //         UploadedText: "重新上传", //更改上传图片
+        //         magnify: false, //放大示例图片;
+        //         magnifyUpload: false, //放大上传图片
+        //         imgLeft: { //示例大小图片的宽、高度;
+        //             smallLeftWidth: 0,
+        //             smallLeftHeight: 0,
+        //             bigblowLeftWidth: 0,
+        //             bigblowLeftHeight: 0,
+        //         },
+        //         imgUpload: { //上传大小图片的宽、高度
+        //             smallWidth: 0,
+        //             smallHeight: 0,
+        //             bigblowWidth: 0,
+        //             bigblowHeight: 0,
+        //         },
+        //         saveState: false, //保存状态;
+        //         maskState: false, //遮罩状态;
+        //         maskHeight: 0, //遮罩高度;
+        //         index: 0, //记录table下标;
+        //         maskList: [
+        //             {
+        //             title: "阿里云",
+        //             list: [{
+        //                 steps: "6",
+        //                 stepList: ["（1）点击页面生成的证书下部下载证书按钮即可"],
+        //                 img: "./img/step6.png"
+        //             }, {
+        //                 steps: "1",
+        //                 stepList: ["（1）访问: aliyun.com", "（2）点击右上角的登陆按钮", "（3）输入用户名及密码并登陆!"],
+        //                 img: "./img/step1.png"
+        //             }, {
+        //                 steps: "2",
+        //                 stepList: ["（1）点击控制台-进入控制台看板"],
+        //                 img: "./img/step2.png"
+        //             }, {
+        //                 steps: "3",
+        //                 stepList: ["（1）点击我的云产品-域名，进入域名管理页"],
+        //                 img: "./img/step3.png"
+        //             }, {
+        //                 steps: "4",
+        //                 stepList: ["（1）点击需要下载证书的域名操作中的-管理"],
+        //                 img: "./img/step4.png"
+        //             }, {
+        //                 steps: "5",
+        //                 stepList: ["（1）点击左侧弹出的单行栏中-域名证书下载"],
+        //                 img: "./img/step5.png"
+        //             }, {
+        //                 steps: "6",
+        //                 stepList: ["（1）点击页面生成的证书下部下载证书按钮即可"],
+        //                 img: "./img/step6.png"
+        //             }, {
+        //                 steps: "1",
+        //                 stepList: ["（1）访问: aliyun.com", "（2）点击右上角的登陆按钮", "（3）输入用户名及密码并登陆!"],
+        //                 img: "./img/step1.png"
+        //             }]
+        //         }, {
+        //             title: "腾讯云",
+        //             list: [
+        //                 {
+        //                 steps: "6",
+        //                 stepList: ["（1）点击页面生成的证书下部下载证书按钮即可（也可以直接打印）"],
+        //                 img: "./img/ystep6.png"
+        //             }, {
+        //                 steps: "1",
+        //                 stepList: ["（1）访问: cloud.tencent.com", "（2）点击右上角的登陆按钮",
+        //                     "（3）输入用户名及密码并登陆!"
+        //                 ],
+        //                 img: "./img/ystep1.png"
+        //             }, {
+        //                 steps: "2",
+        //                 stepList: ["（1）点击控制台-进入控制台看板"],
+        //                 img: "./img/ystep2.png"
+        //             }, {
+        //                 steps: "3",
+        //                 stepList: ["（1）点击左上角云产品，展开云产品"],
+        //                 img: "./img/ystep3.png"
+        //             }, {
+        //                 steps: "4",
+        //                 stepList: ["（1）点击域名与网站-域名管理"],
+        //                 img: "./img/ystep4.png"
+        //             }, {
+        //                 steps: "5",
+        //                 stepList: ["（1）点击需要下载证书的域名右侧更多中的-下载域名证书"],
+        //                 img: "./img/ystep5.png"
+        //             }, {
+        //                 steps: "6",
+        //                 stepList: ["（1）点击页面生成的证书下部下载证书按钮即可（也可以直接打印）"],
+        //                 img: "./img/ystep6.png"
+        //             }, {
+        //                 steps: "1",
+        //                 stepList: ["（1）访问: cloud.tencent.com", "（2）点击右上角的登陆按钮",
+        //                     "（3）输入用户名及密码并登陆!"
+        //                 ],
+        //                 img: "./img/ystep1.png"
+        //             }]
+        //         }], //记录table数据;
+        //         banner: {
+        //             num: 1,
+        //             left: '-771px',
+        //             trans: "",
+        //             liWidth: 771
+        //         }
+
+        //     }
+
+        // },
+        data: _data,
+        created() {
+            let imgele = new Image();
+            imgele.src = this.domainImg;
+            let initW, initH, initBigW, initBigH;
+            imgele.onload = () => {
+                imgele.width > imgele.height ? (initW = "358px", initH = "300px", initBigW = "600px",
+                    initBigH = "auto") : (initH = "358px", initW =
+                    "300px", initBigH = "600px", initBigW = "auto");
+                this.imgLeft.smallLeftWidth = initW;
+                this.imgLeft.smallLeftHeight = initH;
+                this.imgLeft.bigblowLeftWidth = initBigW;
+                this.imgLeft.bigblowLeftHeight = initBigH;
+            }
+            //初始上传图片存在;
+            // this.domainUploadingImg = "";
+            const data = "fId=3";
+            console.log(data, "----=---")
+            this.httpPost("/shop_web/records/queryRecordsById", data, console.error, this.changeImg)
+            if (!this.domainUploadingImg) return;
+            let img = new Image();
+            img.src = this.domainUploadingImg;
+            let initUpW, initUpH, initUpBigW, initUpBigH;
+            img.onload = () => {
+                img.width > img.height ? (initUpW = "358px", initUpH = "auto", initUpBigW = "600px",
+                    initUpBigH = "auto") : (initUpH = "358px", initUpW =
+                    "auto", initUpBigH = "600px", initUpBigW = "auto");
+                this.imgUpload.smallWidth = initUpW;
+                this.imgUpload.smallHeight = initUpH;
+                this.imgUpload.bigblowWidth = initUpBigW;
+                this.imgUpload.bigblowHeight = initUpBigH;
+            }
+
+        },
+        computed: {
+            uploadImg() {
+                return this.domainUploadingImg;
+            },
+            bannerNum() {
+                return this.banner.num
+            }
+        },
+        watch: {},
+        methods: {
+            changeImg(val) {
+                let _data = JSON.parse(val).data;
+                this.doMain_head[0].value = _data.fRecordsDomain;
+                let fRecordsType; //备案类型
+                switch (_data.fRecordsType) {
+                    case 1:
+                        fRecordsType = "首次备案"
+                        break;
+                    case 2:
+                        fRecordsType = "转入备案"
+                        break;
+                    default:
+                        fRecordsType = "新增备案"
+                        break;
+                }
+                this.doMain_head[1].value = fRecordsType;
+                let fRecordsStatus; //备案状态  
+                switch (_data.fRecordsStatus) {
+                    case 1:
+                        fRecordsStatus = "待提交"
+                        break;
+                    case 2:
+                        fRecordsStatus = "待族蚂审核"
+                        break;
+                    case 3:
+                        fRecordsStatus = "待管局审核"
+                        break;
+                    case 4:
+                        fRecordsStatus = "驳回-待修改"
+                        break;
+                    case 5:
+                        fRecordsStatus = "已关闭"
+                        break;
+                    default:
+                        fRecordsStatus = "备案完成"
+                        break;
+                }
+                this.doMain_head[2].value = fRecordsStatus;
+                let date = this.getdate(_data.fCreationTime);
+                this.doMain_head[3].value = date;
+                this.domainUploadingImg = _data.fSafetyCommitment;
+                console.log(JSON.parse(val).data, date)
+            },
+            getdate() {
+                var now = new Date(),
+                    y = now.getFullYear(),
+                    m = now.getMonth() + 1,
+                    d = now.getDate();
+                return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now
+                    .toTimeString().substr(0, 8);
+            },
+            download2() {
+                //     var $form = $('<form method="GET"></form>');
+                //     $form.attr('action', '/download/papers/1');
+                //     $form.appendTo($('body'));
+                //    this.$refs.form.submit();
+            },
+            addArrowLeft() {
+                if (this.banner.num == 1) return;
+                this.banner.num--;
+                this.changeBanner(0, 6, 0)
+                // if( this.banner.num == 0 ) {
+                //     this.banner.trans = "all 0.5s";
+                //     this.banner.left = '0px';
+                //     setTimeout(() => {
+                //         this.banner.num = 6
+                //         this.banner.trans = "";
+                //         this.banner.left = `-${ ((this.banner.num) * 771) }px` 
+                //     }, 500)
+                // }else {
+                //     this.banner.trans = "all 0.5s";
+                //     this.banner.left = `-${ (this.banner.num * 771) }px`
+                // }
+            },
+            addArrowRight() {
+                if (this.banner.num == 6) return;
+                this.banner.num++;
+                this.changeBanner(7, 1, `-${ ((this.banner.num) * 771) }px`)
+                // if( this.banner.num == 7 ) {
+                //     this.banner.trans = "all 0.5s";
+                //     this.banner.left = `-${ ((this.banner.num) * 771) }px` 
+                //     setTimeout(() => {
+                //         this.banner.num = 1
+                //         this.banner.trans = "";
+                //         this.banner.left = `-${this.banner.num*771}px` 
+                //     }, 500)
+                // }else {
+                //     this.banner.trans = "all 0.5s";
+                //     this.banner.left = `-${this.banner.num * 771}px`
+                //     console.log(this.banner.left );
+
+                // }
+            },
+            changeBanner(_rel, _num, _left) {
+                if (this.banner.num == _rel) {
+                    this.banner.trans = "all 0.5s";
+                    this.banner.left = _left;
+                    setTimeout(() => {
+                        this.banner.num = _num;
+                        this.banner.trans = "";
+                        this.banner.left = `-${ ((this.banner.num) * 771) }px`
+                    }, 500)
+                    return;
+                }
+                this.banner.trans = "all 0.5s";
+                this.banner.left = `-${this.banner.num * 771}px`
+            },
+            addCheckList(val) {
+                this.index = val;
+                this.banner.num = 1;
+                this.banner.left = "-771px";
+                this.banner.trans = "";
+            },
+            addclose() {
+                document.body.style.overflow = "";
+                this.maskState = false;
+            },
+            addMask() {
+                //遮罩的高度;
+                let _height = document.documentElement.clientHeight || document.body.clientHeight;
+                console.log(_height)
+                this.maskHeight = _height + 'px';
+                document.body.style.overflow = "hidden";
+                this.maskState = true;
+            },
+            addClick(event) {
+                this.domainUploadingImg = "";
+                var files = event.currentTarget.files[0];
+                if (!files) {
+                    console.log("the file is invaild");
+                    return;
+                }
+                console.log(files)
+                var imgele = new Image();
+                imgele.src = ""
+                var thesrc = window.URL.createObjectURL(files);
+                //后台上传图片开始;
+                this.loadingFlah = true;
+                imgele.src = thesrc;
+                let initW, initH, initBigW, initBigH;
+                //后台上传图片完成;
+                imgele.onload = () => {
+                    imgele.width > imgele.height ? (initW = "358px", initH = "auto", initBigW = "600px",
+                        initBigH = "auto") : (initH = "358px", initW =
+                        "auto", initBigH = "600px", initBigW = "auto");
+                    this.imgUpload.smallWidth = initW;
+                    this.imgUpload.smallHeight = initH;
+                    this.imgUpload.bigblowWidth = initBigW;
+                    this.imgUpload.bigblowHeight = initBigH;
+
+                    setTimeout(() => {
+                        this.loadingFlah = false;
+                        this.Uploaded = true;
+                    }, 200)
+                    //前端变更图片url;
+                    setTimeout(() => {
+                        this.Uploaded = false;
+                        this.domainUploadingImg = thesrc;
+                    }, 500)
+                }
+                // const httpPost = (url, data, err = console.error) => {
+                //     const request = new XMLHttpRequest();
+                //     request.open('POST', url, true);
+                //     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                //     request.onload = () => console.log("上传成功！");
+                //     request.onerror = () => err(request);
+                //     request.send(data);
+                // };
+                const data = "uploadFile=" + files;
+                console.log(data, "----=---")
+                this.httpPost("/upLoadFile/uploadFile", data)
+            },
+            httpPost(url, data, err = console.error, callback) {
+                const request = new XMLHttpRequest();
+                let _this = this;
+                request.open('POST', url, true);
+                request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                request.onload = () => {
+                    if (request.readyState == 4) {
+                        if (callback) {
+                            callback(request.responseText)
+                        } else {
+                            console.log("上传成功！")
+
+                            setTimeout(() => {
+                                _this.save = true;
+                            }, 100)
+                            setTimeout(() => {
+                                _this.saveState = false;
+                            }, 300)
+                        }
+                    } else {
+                        _this.saveState = true;
+                        _this.save = false;
+                    }
+
+                };
+                request.onerror = () => err(request);
+                request.send(data);
+            },
+            addmouseover() {
+                this.magnify = true;
+            },
+            addmousemove(ev) {
+                var x = ev.clientX - (this.$refs.smallbox.offsetLeft + 179 + 51) - this.$refs.smallblowLeft
+                    .offsetWidth /
+                    2;
+                var y = ev.pageY - this.$refs.smallbox.offsetTop - 10 - this.$refs.smallblowLeft.offsetHeight /
+                    2;
+                if (x < 0) {
+                    x = 0;
+                }
+                if (x > this.$refs.smallLeft.offsetWidth - this.$refs.smallblowLeft.offsetWidth) {
+                    x = this.$refs.smallLeft.offsetWidth - this.$refs.smallblowLeft.offsetWidth;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                if (y > this.$refs.smallLeft.offsetHeight - this.$refs.smallblowLeft.offsetHeight) {
+                    y = this.$refs.smallLeftoffsetHeight - this.$refs.smallblowLeft.offsetHeight;
+                }
+                this.$refs.smallblowLeft.style.left = x + "px";
+                this.$refs.smallblowLeft.style.top = y + "px";
+                var Lleft = (-x * this.$refs.bigimgLeft.offsetWidth) / this.$refs.smallLeft.offsetWidth;
+                var Ttop = (-y * this.$refs.bigimgLeft.offsetHeight) / this.$refs.smallLeft.offsetHeight;
+                this.$refs.bigimgLeft.style.left = Lleft + "px";
+                this.$refs.bigimgLeft.style.top = Ttop + "px";
+            },
+            addmouseout() {
+                this.magnify = false;
+            },
+            addmouseoverUpload() {
+                this.magnifyUpload = true;
+            },
+            addmousemoveUpload(ev) {
+                var x = ev.clientX - (this.$refs.smallbox.offsetLeft + 179 + this.$refs.loading
+                        .offsetWidth +
+                        62 + this.$refs.small.offsetLeft) - this.$refs.smallblow.offsetWidth /
+                    2;
+                var y = ev.pageY - this.$refs.smallbox.offsetTop - this.$refs.small.offsetTop - this.$refs
+                    .smallblow.offsetHeight / 2;
+                if (x < 0) {
+                    x = 0;
+                }
+                if (x > this.$refs.small.offsetWidth - this.$refs.smallblow.offsetWidth) {
+                    x = this.$refs.small.offsetWidth - this.$refs.smallblow.offsetWidth;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                if (y > this.$refs.small.offsetHeight - this.$refs.smallblow.offsetHeight) {
+                    y = this.$refs.small.offsetHeight - this.$refs.smallblow.offsetHeight;
+                }
+                this.$refs.smallblow.style.left = x + "px";
+                this.$refs.smallblow.style.top = y + "px";
+                var Lleft = (-x * this.$refs.bigimg.offsetWidth) / this.$refs.small.offsetWidth;
+                var Ttop = (-y * this.$refs.bigimg.offsetHeight) / this.$refs.small.offsetHeight;
+                this.$refs.bigimg.style.left = Lleft + "px";
+                this.$refs.bigimg.style.top = Ttop + "px";
+            },
+            addmouseoutUpload() {
+                this.magnifyUpload = false;
+            },
+            addGoBack() {
+
+            },
+            addSave() {
+                this.saveState = true;
+                let domainType = this.prompt.title;
+                let data;
+                switch (domainType) {
+                    case "主办单位证件上传":
+                        data = "fSponsorCertificate=" + this.domainUploadingImg +
+                            "&fSponsorCertificateStatus=0&fId=3";
+                        break;
+                    case "法人身份证件上传":
+                        data = "fLegalCertificate=" + this.domainUploadingImg +
+                            "&fLegalCertificateStatus=0&fId=3";
+                        break;
+                    case "负责人半身照上传":
+                        data = "fPrincipalPicture=" + this.domainUploadingImg +
+                            "&fPrincipalPictureStatus=0&fId=3";
+                        break;
+                    case "真实性核验单上传":
+                        data = "fAuthenticityChecklist=" + this.domainUploadingImg +
+                            "&fAuthenticityChecklistStatus=0&fId=3";
+                        break;
+                    case "网络安全承诺书上传":
+                        data = "fSafetyCommitment=" + this.domainUploadingImg +
+                            "&fSafetyCommitmentStatus=0&fId=3";
+                        break;
+                    case "域名证书上传":
+                        data = "fDomainCertificate=" + this.domainUploadingImg +
+                            "&fDomainCertificateStatus=0&fId=3";
+                        break;
+                    case "负责人身份证上传":
+                        data = "fPrincipalIdentitycard=" + this.domainUploadingImg +
+                            "&fPrincipalIdentitycard=0&fId=3";
+                        break;
+                    case "法人授权书上传":
+                        data = "fPrincipalAuthorization=" + this.domainUploadingImg +
+                            "&fPrincipalAuthorizationStatus=0&fId=3";
+                        break;
+                    case "网站党建备案信息确认函上传":
+                        data = "fPartybuildingRecordsconfirmation=" + this.domainUploadingImg +
+                            "&fPartybuildingRecordsconfirmationStatus=0&fId=3";
+                        break;
+                    default:
+                        break;
+                }
+                this.httpPost("/shop_web/records/updateRecordsInfo", data)
+                this.save = false; //保存成功初始状态;
+            }
+        }
+    })
+</script>
+
+</html>

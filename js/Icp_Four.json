@@ -1,0 +1,95 @@
+{
+	"doMain_head": [{
+		"name": "备案域名：",
+		"value": "zuma.com"
+	}, {
+		"name": "备案类型：",
+		"value": "首次备案"
+	}, {
+		"name": "备案状态：",
+		"value": "待提交"
+	}, {
+		"name": "创建时间：",
+		"value": "2019-06-26 02:50:20"
+	}],
+	"prompt": {
+		"title": "真实性核验单上传",
+		"text": "提示：请按要求下载填写网站备案信息真实性核验单，完成后上传，审核不通过会延长审核时间",
+		"listData": [{
+			"name": "（1）请您下载《网站备案信息真实性核验单》",
+			"loading": "../img/网站备案信息真实性核验单.doc",
+			"link": "",
+			"img": "",
+			"width": "",
+			"height": "",
+			"symbol1": "",
+			"symbol2": "",
+			"helpText": ""
+		}, {
+			"name": "（2）请使用黑色签字笔填写网站主办者名称、网站类型、网站域名",
+			"loading": "",
+			"link": "",
+			"img": "./img/chek-list.png",
+			"width": "698px",
+			"height": "210px",
+			"symbol1": "",
+			"symbol2": "",
+			"helpText": ""
+		}, {
+			"name": "（3）打印已经填写好的核验单",
+			"loading": "",
+			"link": "",
+			"img": "",
+			"width": "",
+			"height": "",
+			"symbol1": "",
+			"symbol2": "",
+			"helpText": ""
+		}, {
+			"name": "打印后，使用黑色签字笔手写签名，并在右下角盖单位公章",
+			"loading": "",
+			"symbol1": "（",
+			"symbol2": "）",
+			"link": "日期请留空",
+			"img": "./img/Scan-files.png",
+			"width": "698px",
+			"height": "230px",
+			"helpText": ""
+		}, {
+			"name": "（5）上传已加盖公章的彩色扫描件文件",
+			"loading": "",
+			"link": "",
+			"img": "",
+			"width": "",
+			"height": "",
+			"symbol1": "",
+			"symbol2": "",
+			"helpText": ""
+		}]
+	},
+	"domainImg": "./img/CheckList.jpg",
+	"loadingText": "上传彩色扫描件",
+	"loadingState": false,
+	"domainUploadingImg": "",
+	"loadingFlah": false,
+	"Uploaded": false,
+	"UploadedText": "重新上传",
+	"magnify": false,
+	"magnifyUpload": false,
+	"imgLeft": {
+		"smallLeftWidth": 0,
+		"smallLeftHeight": 0,
+		"bigblowLeftWidth": 0,
+		"bigblowLeftHeight": 0
+	},
+	"imgUpload": {
+		"smallWidth": 0,
+		"smallHeight": 0,
+		"bigblowWidth": 0,
+		"bigblowHeight": 0
+	},
+	"saveState": false,
+	"goBack": false,
+	"save": false,
+	"maskState": false
+}

@@ -1,0 +1,75 @@
+ {
+			"doMain_head": [{
+				"name": "备案域名：",
+				"value": "zuma.com"
+			}, {
+				"name": "备案类型：",
+				"value": "首次备案"
+			}, {
+				"name": "备案状态：",
+				"value": "待提交"
+			}, {
+				"name": "创建时间：",
+				"value": "2019-06-26 02:50:20"
+			}],
+			"prompt": {
+				"title": "负责人半身照上传",
+				"text": "提示：请按要求上传网站负责人上半身照，当法人即为网站负责人时上传法人半身照，当法人与网站负责人不同时请上传负责人半身照",
+				"listData": [{
+					"name": "（1）请您站在素色背景前（例如纯色墙面）",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}, {
+					"name": "（2）拍摄您的腰部以上上半身照片",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}, {
+					"name": "（3）扫上传您的上半身图片",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}]
+			},
+			"domainImg": "./img/principal.jpg",
+			"loadingText": "上传正面半身照",
+			"loadingState": false,
+			"domainUploadingImg": "",
+			"loadingFlah": false,
+			"Uploaded": false,
+			"UploadedText": "重新上传",
+			"magnify": false,
+			"magnifyUpload": false,
+			"imgLeft": {
+				"smallLeftWidth": 0,
+				"smallLeftHeight": 0,
+				"bigblowLeftWidth": 0,
+				"bigblowLeftHeight": 0
+			},
+			"imgUpload": {
+				"smallWidth": 0,
+				"smallHeight": 0,
+				"bigblowWidth": 0,
+				"bigblowHeight": 0
+			},
+			"saveState": false,
+			"goBack":false,
+			"save":false,
+			"maskState": false
+		}

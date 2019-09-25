@@ -1,0 +1,85 @@
+ {
+			"doMain_head": [{
+				"name": "备案域名：",
+				"value": "zuma.com"
+			}, {
+				"name": "备案类型：",
+				"value": "首次备案"
+			}, {
+				"name": "备案状态：",
+				"value": "待提交"
+			}, {
+				"name": "创建时间：",
+				"value": "2019-06-26 02:50:20"
+			}],
+			"prompt": {
+				"title": "负责人身份证上传",
+				"text": "提示：仅支持60周岁（不含）以下的用户申请备案，请仔细查看上传资料要求，审核不通过会延长审核时间",
+				"listData": [{
+					"name": "（1）请您准备法人身份证正反面的彩色扫描件",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}, {
+					"name": "（2）在您的扫描件上盖上主体公章",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}, {
+					"name": "（3）扫描已加盖公章的彩色扫描件",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}, {
+					"name": "（4）上传已加盖公章的彩色扫描件文件",
+					"loading": "",
+					"symbol1": "",
+					"symbol2": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"helpText": ""
+				}]
+			},
+			"domainImg": "./img/papers.jpg",
+			"loadingText": "上传彩色扫描件",
+			"loadingState": false,
+			"domainUploadingImg": "",
+			"loadingFlah": false,
+			"Uploaded": false,
+			"UploadedText": "重新上传",
+			"magnify": false,
+			"magnifyUpload": false,
+			"imgLeft": {
+				"smallLeftWidth": 0,
+				"smallLeftHeight": 0,
+				"bigblowLeftWidth": 0,
+				"bigblowLeftHeight": 0
+			},
+			"imgUpload": {
+				"smallWidth": 0,
+				"smallHeight": 0,
+				"bigblowWidth": 0,
+				"bigblowHeight": 0
+			},
+			"saveState": false,
+			"goBack":false,
+			"save":false,
+			"maskState": false
+		}

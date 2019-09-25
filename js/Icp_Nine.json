@@ -1,0 +1,75 @@
+ {
+			"doMain_head": [{
+				"name": "备案域名：",
+				"value": "zuma.com"
+			}, {
+				"name": "备案类型：",
+				"value": "首次备案"
+			}, {
+				"name": "备案状态：",
+				"value": "待提交"
+			}, {
+				"name": "创建时间：",
+				"value": "2019-06-26 02:50:20"
+			}],
+			"prompt": {
+				"title": "网站党建备案信息确认函上传",
+				"text": "提示：根据国家相关政策，新疆维吾尔自治区及西藏自治区的网站备案需要到当地网信部门办理网站党建备案信息确认函",
+				"listData": [{
+					"name": "（1）根据备案主体地址联系各地区网信办",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}, {
+					"name": "（2）办理党建确认函前置文件",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}, {
+					"name": "（3）党建确认函下发后请于30天内将彩色扫描件上传",
+					"loading": "",
+					"link": "",
+					"img": "",
+					"width": "",
+					"height": "",
+					"symbol1": "",
+					"symbol2": "",
+					"helpText": ""
+				}]
+			},
+			"domainImg": "./img/founding.jpg",
+			"loadingText": "上传彩色扫描件",
+			"loadingState": false,
+			"domainUploadingImg": "",
+			"loadingFlah": false,
+			"Uploaded": false,
+			"UploadedText": "重新上传",
+			"magnify": false,
+			"magnifyUpload": false,
+			"imgLeft": {
+				"smallLeftWidth": 0,
+				"smallLeftHeight": 0,
+				"bigblowLeftWidth": 0,
+				"bigblowLeftHeight": 0
+			},
+			"imgUpload": {
+				"smallWidth": 0,
+				"smallHeight": 0,
+				"bigblowWidth": 0,
+				"bigblowHeight": 0
+			},
+			"saveState": false,
+			"goBack":false,
+			"save":false,
+			"maskState": false
+		}
